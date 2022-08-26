@@ -1,0 +1,17 @@
+.header {
+    margin-top: 50px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    color: #2e2e2e;
+}
+
+.message {
+    height: 202px;
+    width: 400px;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    padding: 10px;
+    margin-top: 30px;
+    border-radius: 5px;
+    border: 1px solid #A4A4A4;
+}

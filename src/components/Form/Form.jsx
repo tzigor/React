@@ -1,14 +1,25 @@
 import style from './Form.module.css'
 import React from 'react';
+import { useState } from "react";
 
+export const Form = ({ handleChangeText }) => {
+    const [textToBeSend, setTextToBeSend] = useState('')
 
-export const Form = () => {
-    const count = 1;
-    const name = 'Igor';
-    return <form className={style.form}>
-        <p>count: {count}</p>
-        <p>name: {name}</p>
-        {/* <input type='text' /> */}
-        <button type='button'>clock</button>
+    const handleClick = () => {
+        handleChangeText(textToBeSend)
+    }
+
+    const handleChangeTextToBeSend = (ev) => {
+        setTextToBeSend(ev.target.value)
+    }
+
+    const handleSubmit = (ev) => {
+        ev.preventDefault()
+    }
+
+    return <form onSubmit={handleSubmit} className={style.form}>
+        <textarea className={style.inputForm} type='text' onChange={handleChangeTextToBeSend} />
+        <button className={style.buttonSend} onClick={handleClick}>Send message</button>
     </form>
+
 }
