@@ -9,7 +9,7 @@ body {
 }
 
 .App {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(252, 252, 252);
     display: flex;
     justify-content: center;
     flex-direction: column;
