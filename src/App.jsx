@@ -1,7 +1,6 @@
-
 import React from 'react';
-import { useState, useRef, useEffect } from "react";
-import './index.css'
+import { useState, useRef, useEffect } from 'react';
+import './index.css';
 import { Message } from './components/Message/Message';
 import { Form } from './components/Form/Form';
 import { randomMessage } from './Utils';
@@ -20,7 +19,11 @@ export function App() {
     setTimeout(() => {
       const updateMessage = [
         ...messageList,
-        { id: messageList.length + 1, author: 'Robot', text: 'Hi ' + lastUser + '. ' + randomMessage() }
+        {
+          id: messageList.length + 1,
+          author: 'Robot',
+          text: 'Hi ' + lastUser + '. ' + randomMessage(),
+        },
       ];
       setMessageList(updateMessage);
     }, 1500);
@@ -28,10 +31,16 @@ export function App() {
 
   return (
     <div className="App">
-      <Form message={messageList} handleChangeText={setMessageList} setCount={setCount} setLastUser={setLastUser} />
+      <Form
+        message={messageList}
+        handleChangeText={setMessageList}
+        setCount={setCount}
+        setLastUser={setLastUser}
+      />
       <Message messageList={messageList} />
       <p>Total {count} messages received from users</p>
     </div>
-  )
+  );
 }
 
+const a = 1;

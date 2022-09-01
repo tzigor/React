@@ -16,8 +16,10 @@
   "scripts": {
     "start": "webpack serve --mode=development",
     "build": "webpack  --mode=production",
+    "lint": "npx eslint ./src --ext .js,.jsx --fix",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
