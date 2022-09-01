@@ -1,10 +1,18 @@
-import React from 'react';
-import './Message.css'
+import { React, useState } from "react";
+import './Message.css';
 
 export const Message = ({ messageList }) => {
+    let messageStyle = ''
     return <>
-        <div className="message">
-            {messageList.map((item, index) => <div key={item.id}>{item.author}: {item.text}</div>)}
+        <div className="messageBox">
+            {messageList.map((item) => {
+                if (item.author === 'Robot') messageStyle = "robotMessage"
+                else messageStyle = "message"
+                return <div className={messageStyle} key={item.id}>
+                    <p className="userStyle">{item.author}:</p>
+                    <p>{item.text}</p>
+                </div>
+            })}
         </div>
     </>
 }

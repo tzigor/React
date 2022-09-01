@@ -1,17 +1,19 @@
 import './Form.css'
-import React from 'react';
-import { useState } from "react";
+import { React, useState } from "react";
 
-export const Form = ({ message, handleChangeText, count }) => {
+export const Form = ({ message, handleChangeText, setCount, setLastUser }) => {
     const [textToBeSend, setTextToBeSend] = useState('')
     const [user, setUser] = useState('')
 
     const handleClick = () => {
         if (!(user === '')) {
-            message.push({ id: message.length + 1, author: user, text: textToBeSend });
-            handleChangeText(message);
-            console.log(message);
-            count(message.length)
+            const updateMessage = [
+                ...message,
+                { id: message.length + 1, author: user, text: textToBeSend }
+            ];
+            handleChangeText(updateMessage);
+            setCount(updateMessage.length);
+            setLastUser(user);
         }
     }
 

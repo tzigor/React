@@ -1,23 +1,36 @@
 
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import './index.css'
 import { Message } from './components/Message/Message';
 import { Form } from './components/Form/Form';
+import { randomMessage } from './Utils';
 
 export function App() {
   const [count, setCount] = useState(0);
   const [messageList, setMessageList] = useState([]);
+  const [lastUser, setLastUser] = useState('');
 
+  const firstUpdate = useRef(true);
   useEffect(() => {
-    console.log('messageList updated');
-  }, [messageList])
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    setTimeout(() => {
+      const updateMessage = [
+        ...messageList,
+        { id: messageList.length + 1, author: 'Robot', text: 'Hi ' + lastUser + '. ' + randomMessage() }
+      ];
+      setMessageList(updateMessage);
+    }, 1500);
+  }, [count]);
 
   return (
     <div className="App">
-      <Form message={messageList} handleChangeText={setMessageList} count={setCount} />
+      <Form message={messageList} handleChangeText={setMessageList} setCount={setCount} setLastUser={setLastUser} />
       <Message messageList={messageList} />
-      {count}
+      <p>Total {count} messages received from users</p>
     </div>
   )
 }
