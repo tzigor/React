@@ -42,5 +42,3 @@ export function App() {
     </div>
   );
 }
-
-const a = 1;

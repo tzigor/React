@@ -9,8 +9,8 @@ module.exports = {
         'eslint:recommended',
         'plugin:prettier/recommended',
         'plugin:react/recommended',
-        'plugin:react-hooks/recommended'
-        // 'plugin:storybook/recommended',
+        'plugin:react-hooks/recommended',
+        'plugin:storybook/recommended'
     ],
     parserOptions: {
         ecmaFeatures: {
