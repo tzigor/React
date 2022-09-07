@@ -1,5 +1,9 @@
 import './Form.css';
 import { React, useState } from 'react';
+import { TextField } from '@material-ui/core';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import InputAdornment from '@mui/material/InputAdornment';
+import Input from '@mui/material/Input';
 
 export const Form = ({ message, handleChangeText, setCount, setLastUser }) => {
   const [textToBeSend, setTextToBeSend] = useState('');
@@ -30,19 +34,26 @@ export const Form = ({ message, handleChangeText, setCount, setLastUser }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form">
-      <textarea
-        className="inputForm"
-        type="text"
+    <form data-testid="formBox" onSubmit={handleSubmit} className="form">
+      <TextField
+        label="Enter text"
+        variant="outlined"
         onChange={handleChangeTextToBeSend}
-        placeholder="Message"
+        multiline
+        minRows="4"
+        maxRows="4"
+        className="inputForm"
       />
       <div className="inputUser">
-        <input
-          className="userForm"
-          type="text"
+        <Input
+          startAdornment={
+            <InputAdornment position="start">
+              <AccountCircle />
+            </InputAdornment>
+          }
+          style={{ width: '150px' }}
+          placeholder="User"
           onChange={handleChangeUser}
-          placeholder="Name"
         />
         <button className="buttonSend" onClick={handleClick}>
           Send message

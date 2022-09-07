@@ -11,6 +11,7 @@
 
 # production
 /build
+/.loki
 
 # misc
 .DS_Store
