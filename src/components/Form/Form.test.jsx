@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { Form } from './Form';
 
@@ -9,7 +8,6 @@ describe('Form', () => {
     expect(Form).toBeInstanceOf(Function);
   });
   describe('functionality', () => {
-
     it('render component with text', () => {
       render(<Form />);
       expect(screen.getByText(/Send message/)).toBeInTheDocument();
@@ -22,13 +20,12 @@ describe('Form', () => {
           <Form />
         </>
       );
-      expect(screen.queryAllByText(/Send message/).length).toBe(2);
+      expect(screen.queryAllByText(/Send message/)).toHaveLength(2);
     });
 
     it('form is visible', () => {
       render(<Form />);
-      expect(screen.getByTestId('formBox')).toBeVisible()
+      expect(screen.getByTestId('formBox')).toBeVisible();
     });
-
   });
-})
+});
