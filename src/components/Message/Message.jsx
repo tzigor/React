@@ -5,7 +5,7 @@ export const Message = ({ messageList }) => {
   let messageStyle = '';
   return (
     <>
-      <div className="messageBox">
+      <div data-testid="messageBox" className="messageBox">
         {messageList.map((item) => {
           if (item.author === 'Robot') messageStyle = 'robotMessage';
           else messageStyle = 'message';

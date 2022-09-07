@@ -30,7 +30,7 @@ export const Form = ({ message, handleChangeText, setCount, setLastUser }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form">
+    <form data-testid="formBox" onSubmit={handleSubmit} className="form">
       <textarea
         className="inputForm"
         type="text"

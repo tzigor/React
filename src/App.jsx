@@ -16,7 +16,7 @@ export function App() {
       firstUpdate.current = false;
       return;
     }
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       const updateMessage = [
         ...messageList,
         {
@@ -27,6 +27,7 @@ export function App() {
       ];
       setMessageList(updateMessage);
     }, 1500);
+    return () => clearTimeout(timeout);
   }, [count]);
 
   return (
