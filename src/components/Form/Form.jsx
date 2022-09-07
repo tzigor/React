@@ -1,6 +1,6 @@
 import './Form.css';
 import { React, useState } from 'react';
-import { TextField } from "@material-ui/core"
+import { TextField } from '@material-ui/core';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputAdornment from '@mui/material/InputAdornment';
 import Input from '@mui/material/Input';
@@ -40,8 +40,8 @@ export const Form = ({ message, handleChangeText, setCount, setLastUser }) => {
         variant="outlined"
         onChange={handleChangeTextToBeSend}
         multiline
-        minRows='4'
-        maxRows='4'
+        minRows="4"
+        maxRows="4"
         className="inputForm"
       />
       <div className="inputUser">
