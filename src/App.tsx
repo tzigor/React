@@ -1,13 +1,14 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, FC } from 'react';
 import './index.css';
 import { Message } from './components/Message/Message';
 import { Form } from './components/Form/Form';
 import { randomMessage } from './Utils';
+import { MessageItems } from './Types';
 
-export function App() {
+export const App: FC = () => {
   const [count, setCount] = useState(0);
-  const [messageList, setMessageList] = useState([]);
+  const [messageList, setMessageList] = useState<MessageItems>([]);
   const [lastUser, setLastUser] = useState('');
 
   const firstUpdate = useRef(true);
@@ -17,7 +18,7 @@ export function App() {
       return;
     }
     const timeout = setTimeout(() => {
-      const updateMessage = [
+      const updateMessage: MessageItems = [
         ...messageList,
         {
           id: messageList.length + 1,
@@ -38,8 +39,8 @@ export function App() {
         setCount={setCount}
         setLastUser={setLastUser}
       />
-      <Message messageList={messageList} />
+      <Message messageListProp={messageList} />
       <p>Total {count} messages received from users</p>
     </div>
   );
-}
+};

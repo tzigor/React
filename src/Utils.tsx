@@ -1,9 +1,9 @@
-export function wordCount(str) {
+export function wordCount(str: string) {
   const m = str.match(/[^\s]+/g);
   return m ? m.length : 0;
 }
 
-export function plural(n) {
+export function plural(n: number) {
   if (n === 0) return 'no words';
   else if (n === 1) return '1 word';
   else return n + ' words';

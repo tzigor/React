@@ -1,12 +1,12 @@
-import { React } from 'react';
 import './Message.css';
+import { MessageProps } from '../../Types';
 
-export const Message = ({ messageList }) => {
+export const Message = ({ messageListProp }: MessageProps) => {
   let messageStyle = '';
   return (
     <>
       <div data-testid="messageBox" className="messageBox">
-        {messageList.map((item) => {
+        {messageListProp.map((item) => {
           if (item.author === 'Robot') messageStyle = 'robotMessage';
           else messageStyle = 'message';
           return (

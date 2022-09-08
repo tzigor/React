@@ -1,17 +1,23 @@
 import './Form.css';
-import { React, useState } from 'react';
+import { useState } from 'react';
 import { TextField } from '@material-ui/core';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputAdornment from '@mui/material/InputAdornment';
 import Input from '@mui/material/Input';
+import { MessageItems, FormProps } from '../../Types';
 
-export const Form = ({ message, handleChangeText, setCount, setLastUser }) => {
+export const Form = ({
+  message,
+  handleChangeText,
+  setCount,
+  setLastUser,
+}: FormProps) => {
   const [textToBeSend, setTextToBeSend] = useState('');
   const [user, setUser] = useState('');
 
   const handleClick = () => {
     if (!(user === '')) {
-      const updateMessage = [
+      const updateMessage: MessageItems = [
         ...message,
         { id: message.length + 1, author: user, text: textToBeSend },
       ];
@@ -21,15 +27,19 @@ export const Form = ({ message, handleChangeText, setCount, setLastUser }) => {
     }
   };
 
-  const handleChangeTextToBeSend = (ev) => {
+  const handleChangeTextToBeSend = (
+    ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setTextToBeSend(ev.target.value);
   };
 
-  const handleChangeUser = (ev) => {
+  const handleChangeUser = (
+    ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setUser(ev.target.value);
   };
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
   };
 
