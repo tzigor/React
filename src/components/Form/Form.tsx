@@ -5,7 +5,12 @@ import { MessageItems, FormProps } from '../../Types';
 import { InputUser } from '../InputUser/InputUser';
 import { Button } from '../Button/Button';
 
-export const Form: FC<FormProps> = ({ message, handleChangeText, setCount, setLastUser }) => {
+export const Form: FC<FormProps> = ({
+  message,
+  handleChangeText,
+  setCount,
+  setLastUser,
+}) => {
   const [textToBeSend, setTextToBeSend] = useState('');
   const [user, setUser] = useState('');
 

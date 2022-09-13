@@ -11,7 +11,8 @@ describe('Form', () => {
 
   it('input change with fireevent', () => {
     render(<Form />);
-    const input = screen.getByTestId < HTMLInputElement | HTMLTextAreaElement > ('input');
+    const input =
+      (screen.getByTestId < HTMLInputElement) | (HTMLTextAreaElement > 'input');
     console.log(input);
     fireEvent.change(input, { target: { value: 'new value' } });
     expect(input.value).toBe('new value');
@@ -24,5 +25,4 @@ describe('Form', () => {
   //   await userEvent.type(input, 'Hello world');
   //   expect(input.value).toBe('Hello world');
   // });
-
 });
