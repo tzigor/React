@@ -20,5 +20,5 @@ export function randomMessage() {
     'The best thing in our life is love',
     'Never regret anything that made you smile',
   ];
-  return messages[Math.floor(Math.random() * (messages.length + 1))];
+  return messages[Math.floor(Math.random() * messages.length)];
 }

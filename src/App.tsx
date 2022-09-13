@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState, useRef, useEffect, FC } from 'react';
 import './index.css';
 import { Message } from './components/Message/Message';

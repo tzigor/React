@@ -1,22 +1,18 @@
 import './Form.css';
-import { useState } from 'react';
+import { FC, useState, useRef } from 'react';
 import { TextField } from '@material-ui/core';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import InputAdornment from '@mui/material/InputAdornment';
-import Input from '@mui/material/Input';
 import { MessageItems, FormProps } from '../../Types';
+import { InputUser } from '../InputUser/InputUser';
+import { Button } from '../Button/Button';
 
-export const Form = ({
-  message,
-  handleChangeText,
-  setCount,
-  setLastUser,
-}: FormProps) => {
+export const Form: FC<FormProps> = ({ message, handleChangeText, setCount, setLastUser }) => {
   const [textToBeSend, setTextToBeSend] = useState('');
   const [user, setUser] = useState('');
 
+  const messageInputRef = useRef<HTMLInputElement>(null);
+
   const handleClick = () => {
-    if (!(user === '')) {
+    if (user && textToBeSend) {
       const updateMessage: MessageItems = [
         ...message,
         { id: message.length + 1, author: user, text: textToBeSend },
@@ -25,18 +21,7 @@ export const Form = ({
       setCount(updateMessage.length);
       setLastUser(user);
     }
-  };
-
-  const handleChangeTextToBeSend = (
-    ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setTextToBeSend(ev.target.value);
-  };
-
-  const handleChangeUser = (
-    ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setUser(ev.target.value);
+    messageInputRef.current?.focus();
   };
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
@@ -46,28 +31,21 @@ export const Form = ({
   return (
     <form data-testid="formBox" onSubmit={handleSubmit} className="form">
       <TextField
+        autoFocus
+        inputRef={messageInputRef}
         label="Enter text"
         variant="outlined"
-        onChange={handleChangeTextToBeSend}
+        onChange={(ev) => setTextToBeSend(ev.target.value)}
         multiline
         minRows="4"
         maxRows="4"
         className="inputForm"
+        value={textToBeSend}
+        inputProps={{ 'data-testid': 'input' }}
       />
       <div className="inputUser">
-        <Input
-          startAdornment={
-            <InputAdornment position="start">
-              <AccountCircle />
-            </InputAdornment>
-          }
-          style={{ width: '150px' }}
-          placeholder="User"
-          onChange={handleChangeUser}
-        />
-        <button className="buttonSend" onClick={handleClick}>
-          Send message
-        </button>
+        <InputUser changeUser={setUser} />
+        <Button click={handleClick} />
       </div>
     </form>
   );
