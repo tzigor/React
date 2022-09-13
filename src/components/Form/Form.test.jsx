@@ -1,31 +1,28 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 import { Form } from './Form';
 
 describe('Form', () => {
-  it('is a Compoment', () => {
+  it('render ompoment', () => {
     render(<Form />);
     expect(Form).toBeInstanceOf(Function);
   });
-  describe('functionality', () => {
-    it('render component with text', () => {
-      render(<Form />);
-      expect(screen.getByText(/Send message/)).toBeInTheDocument();
-    });
 
-    it('render multiply components', () => {
-      render(
-        <>
-          <Form />
-          <Form />
-        </>
-      );
-      expect(screen.queryAllByText(/Send message/)).toHaveLength(2);
-    });
-
-    it('form is visible', () => {
-      render(<Form />);
-      expect(screen.getByTestId('formBox')).toBeVisible();
-    });
+  it('input change with fireevent', () => {
+    render(<Form />);
+    const input =
+      (screen.getByTestId < HTMLInputElement) | (HTMLTextAreaElement > 'input');
+    console.log(input);
+    fireEvent.change(input, { target: { value: 'new value' } });
+    expect(input.value).toBe('new value');
   });
+
+  // it('input change with userevent', async () => {
+  //   render(<Form />);
+  //   const input = screen.getByTestId < HTMLInputElement > ('input');
+
+  //   await userEvent.type(input, 'Hello world');
+  //   expect(input.value).toBe('Hello world');
+  // });
 });

@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, './src/index.js'),
+    entry: path.resolve(__dirname, './src/index.tsx'),
 
     output: {
         filename: 'bundle.js',
@@ -16,7 +16,7 @@ module.exports = {
             store: path.resolve(__dirname, 'src/store'),
             svg: path.resolve(__dirname, 'src/assets/svg'),
         },
-        extensions: ['.js', '.jsx']
+        extensions: ['.jsx', '.js', '.tsx', '.ts'],
     },
 
     devtool: 'eval-source-map',
@@ -36,7 +36,7 @@ module.exports = {
         rules: [
             {
                 exclude: /node_modules/,
-                test: /\.jsx?$/,
+                test: /\.(t|j)sx?$/,
                 use: ['babel-loader'],
             },
             {
