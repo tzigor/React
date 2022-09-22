@@ -17,12 +17,4 @@ describe('Form', () => {
     fireEvent.change(input, { target: { value: 'new value' } });
     expect(input.value).toBe('new value');
   });
-
-  // it('input change with userevent', async () => {
-  //   render(<Form />);
-  //   const input = screen.getByTestId < HTMLInputElement > ('input');
-
-  //   await userEvent.type(input, 'Hello world');
-  //   expect(input.value).toBe('Hello world');
-  // });
 });
