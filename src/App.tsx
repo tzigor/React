@@ -43,7 +43,9 @@ export const App: FC = () => {
         setLastUser={setLastUser}
       />
       <Message messageListProp={messageList} />
-      <button className="delButton" onClick={handleClick}>Delete chat</button>
+      <button className="delButton" onClick={handleClick}>
+        Delete chat
+      </button>
       <p>Total {count} messages received from users</p>
     </div>
   );
