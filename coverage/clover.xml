@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1663056946444" clover="3.2.0">
+  <project timestamp="1663056946444" name="All files">
+    <metrics statements="21" coveredstatements="12" conditionals="4" coveredconditionals="0" methods="7" coveredmethods="3" elements="32" coveredelements="15" complexity="0" loc="21" ncloc="21" packages="3" files="3" classes="3"/>
+    <package name="Button">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="Button.tsx" path="C:\Users\ITsukanov\Documents\GB\React\src\components\Button\Button.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="Form">
+      <metrics statements="15" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="1"/>
+      <file name="Form.tsx" path="C:\Users\ITsukanov\Documents\GB\React\src\components\Form\Form.tsx">
+        <metrics statements="15" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="1"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="InputUser">
+      <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+      <file name="InputUser.tsx" path="C:\Users\ITsukanov\Documents\GB\React\src\components\InputUser\InputUser.tsx">
+        <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
