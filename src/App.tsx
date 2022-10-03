@@ -9,28 +9,36 @@ const defaultChatList: ChatList = [
   {
     id: 1,
     name: 'chat 1',
-    chat: []
+    chat: [],
   },
   {
     id: 2,
     name: 'chat 2',
-    chat: []
+    chat: [],
   },
   {
     id: 3,
     name: 'chat 3',
-    chat: []
+    chat: [],
   },
-]
+];
 
 export const App: FC = () => {
   const [chatList, setChatList] = useState<ChatList>(defaultChatList);
   return (
     <Routes>
-      <Route path="/" element={<Main chatList={chatList} handleChatList={setChatList} />} />
+      <Route
+        path="/"
+        element={<Main chatList={chatList} handleChatList={setChatList} />}
+      />
       <Route path="profile" element={<Profile />} />
       <Route path="chats">
-        <Route path=":chatId" element={<ChatPage chatList={chatList} handleChatList={setChatList} />} />
+        <Route
+          path=":chatId"
+          element={
+            <ChatPage chatList={chatList} handleChatList={setChatList} />
+          }
+        />
       </Route>
       <Route path="*" element={<div>404 page</div>} />
     </Routes>
