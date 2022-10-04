@@ -4,6 +4,7 @@ import { Main } from './Pages/Main';
 import { Profile } from './Pages/Profile';
 import { ChatPage } from './Pages/ChatPage';
 import { ChatList } from './Types';
+import { Header } from './components/Header';
 
 const defaultChatList: ChatList = [
   {
@@ -27,20 +28,22 @@ export const App: FC = () => {
   const [chatList, setChatList] = useState<ChatList>(defaultChatList);
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<Main chatList={chatList} handleChatList={setChatList} />}
-      />
-      <Route path="profile" element={<Profile />} />
-      <Route path="chats">
+      <Route path="/" element={<Header />}>
         <Route
-          path=":chatId"
-          element={
-            <ChatPage chatList={chatList} handleChatList={setChatList} />
-          }
+          path="/Main"
+          element={<Main chatList={chatList} handleChatList={setChatList} />}
         />
+        <Route path="profile" element={<Profile />} />
+        <Route path="chats">
+          <Route
+            path=":chatId"
+            element={
+              <ChatPage chatList={chatList} handleChatList={setChatList} />
+            }
+          />
+        </Route>
+        <Route path="*" element={<div>404 page</div>} />
       </Route>
-      <Route path="*" element={<div>404 page</div>} />
     </Routes>
   );
 };
