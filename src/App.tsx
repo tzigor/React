@@ -1,52 +1,49 @@
-import { useState, useRef, useEffect, FC } from 'react';
-import './index.css';
-import { Message } from './components/Message/Message';
-import { Form } from './components/Form/Form';
-import { randomMessage } from './Utils';
-import { MessageItems } from './Types';
+import { FC, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Main } from './Pages/Main';
+import { Profile } from './Pages/Profile';
+import { ChatPage } from './Pages/ChatPage';
+import { ChatList } from './Types';
+import { Header } from './components/Header';
+
+const defaultChatList: ChatList = [
+  {
+    id: 1,
+    name: 'chat 1',
+    chat: [],
+  },
+  {
+    id: 2,
+    name: 'chat 2',
+    chat: [],
+  },
+  {
+    id: 3,
+    name: 'chat 3',
+    chat: [],
+  },
+];
 
 export const App: FC = () => {
-  const [count, setCount] = useState(0);
-  const [messageList, setMessageList] = useState<MessageItems>([]);
-  const [lastUser, setLastUser] = useState('');
-
-  const firstUpdate = useRef(true);
-  useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
-    const timeout = setTimeout(() => {
-      const updateMessage: MessageItems = [
-        ...messageList,
-        {
-          id: messageList.length + 1,
-          author: 'Robot',
-          text: 'Hi ' + lastUser + '. ' + randomMessage(),
-        },
-      ];
-      setMessageList(updateMessage);
-    }, 1500);
-    return () => clearTimeout(timeout);
-  }, [count]);
-
-  const handleClick = () => {
-    setMessageList([]);
-  };
-
+  const [chatList, setChatList] = useState<ChatList>(defaultChatList);
   return (
-    <div className="App">
-      <Form
-        message={messageList}
-        handleChangeText={setMessageList}
-        setCount={setCount}
-        setLastUser={setLastUser}
-      />
-      <Message messageListProp={messageList} />
-      <button className="delButton" onClick={handleClick}>
-        Delete chat
-      </button>
-      <p>Total {count} messages received from users</p>
-    </div>
+    <Routes>
+      <Route path="/" element={<Header />}>
+        <Route
+          path="/Main"
+          element={<Main chatList={chatList} handleChatList={setChatList} />}
+        />
+        <Route path="profile" element={<Profile />} />
+        <Route path="chats">
+          <Route
+            path=":chatId"
+            element={
+              <ChatPage chatList={chatList} handleChatList={setChatList} />
+            }
+          />
+        </Route>
+        <Route path="*" element={<div>404 page</div>} />
+      </Route>
+    </Routes>
   );
 };

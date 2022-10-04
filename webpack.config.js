@@ -29,7 +29,13 @@ module.exports = {
 
     mode: 'development',
     devServer: {
-        static: './build',
+        client: {
+            logging: 'info',
+        },
+        compress: true,
+        // for react router
+        historyApiFallback: true,
+        port: 8000,
     },
 
     module: {
