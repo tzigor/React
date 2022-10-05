@@ -34,14 +34,14 @@ export const App: FC = () => {
         <Route path="/" element={<Header />}>
           <Route
             path="/Main"
-            element={<Main chatList={chatList} handleChatList={setChatList} />}
+            element={<Main chatList={chatList} setChatList={setChatList} />}
           />
           <Route path="profile" element={<Profile />} />
           <Route path="chats">
             <Route
               path=":chatId"
               element={
-                <ChatPage chatList={chatList} handleChatList={setChatList} />
+                <ChatPage chatList={chatList} setChatList={setChatList} />
               }
             />
           </Route>

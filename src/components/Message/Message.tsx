@@ -1,11 +1,11 @@
 import './Message.css';
 import { MessageProps } from '../../Types';
 
-export const Message = ({ messageListProp }: MessageProps) => {
+export const Message = ({ chatId, chatList }: MessageProps) => {
   let messageStyle = '';
   return (
     <div data-testid="messageBox" className="messageBox">
-      {messageListProp.map((item) => {
+      {chatList[Number(chatId) - 1].chat.map((item) => {
         if (item.author === 'Robot') messageStyle = 'robotMessage';
         else messageStyle = 'message';
         return (

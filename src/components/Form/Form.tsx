@@ -1,13 +1,14 @@
 import './Form.css';
 import { FC, useState, useRef } from 'react';
 import { TextField } from '@material-ui/core';
-import { MessageItems, FormProps } from '../../Types';
+import { MessageItems, FormProps, ChatList } from '../../Types';
 import { InputUser } from '../InputUser/InputUser';
 import { Button } from '../Button/Button';
 
 export const Form: FC<FormProps> = ({
-  message,
-  handleChangeText,
+  chatId,
+  chatList,
+  setChatList,
   setCount,
   setLastUser,
 }) => {
@@ -19,10 +20,15 @@ export const Form: FC<FormProps> = ({
   const handleClick = () => {
     if (user && textToBeSend) {
       const updateMessage: MessageItems = [
-        ...message,
-        { id: message.length + 1, author: user, text: textToBeSend },
+        ...chatList[Number(chatId) - 1].chat,
+        {
+          id: chatList[Number(chatId) - 1].chat.length + 1,
+          author: user,
+          text: textToBeSend,
+        },
       ];
-      handleChangeText(updateMessage);
+      chatList[Number(chatId) - 1].chat = updateMessage;
+      setChatList(chatList);
       setCount(updateMessage.length);
       setLastUser(user);
     }

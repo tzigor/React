@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { ListItem } from '@mui/material';
 import './pages.css';
 
-export const Main: FC<MainProps> = ({ chatList, handleChatList }) => {
+export const Main: FC<MainProps> = ({ chatList, setChatList }) => {
   const [chatName, setChatName] = useState('');
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
@@ -15,7 +15,7 @@ export const Main: FC<MainProps> = ({ chatList, handleChatList }) => {
         ...chatList,
         { id: chatList.length + 1, name: chatName, chat: [] },
       ];
-      handleChatList(updateChats);
+      setChatList(updateChats);
     }
   };
   return (
