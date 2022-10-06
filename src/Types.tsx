@@ -5,9 +5,11 @@ export interface MessageItem {
 }
 
 export type MessageItems = MessageItem[];
+export type MessageItemsObj = {
+  Chat: MessageItems
+};
 
 export interface Chats {
-  id: number;
   name: string;
   chat: MessageItems;
 }

@@ -7,34 +7,16 @@ import { ChatList } from './Types';
 import { Header } from './components/Header';
 import { Provider } from 'react-redux';
 import { store } from './store/index';
-
-const defaultChatList: ChatList = [
-  {
-    id: 1,
-    name: 'chat 1',
-    chat: [],
-  },
-  {
-    id: 2,
-    name: 'chat 2',
-    chat: [],
-  },
-  {
-    id: 3,
-    name: 'chat 3',
-    chat: [],
-  },
-];
+import { useDispatch, useSelector } from 'react-redux';
 
 export const App: FC = () => {
-  const [chatList, setChatList] = useState<ChatList>(defaultChatList);
   return (
     <Provider store={store}>
       <Routes>
         <Route path="/" element={<Header />}>
           <Route
             path="/Main"
-            element={<Main chatList={chatList} setChatList={setChatList} />}
+            element={<Main />}
           />
           <Route path="profile" element={<Profile />} />
           <Route path="chats">
