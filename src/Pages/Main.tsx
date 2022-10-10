@@ -8,7 +8,7 @@ import { addChat, ChatListState } from '../store/index';
 
 export const Main = () => {
     const dispatch = useDispatch();
-    const chatListState = useSelector((state: ChatListState) => state.store.chatList);
+    const chatListState = useSelector((state: ChatListState) => state.main.chatList);
     let chatName = '';
 
     const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {

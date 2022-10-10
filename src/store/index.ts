@@ -1,24 +1,34 @@
-import { createStore, compose, combineReducers, Reducer } from 'redux';
+import { createStore, compose, combineReducers } from 'redux';
 import { profileReducer } from './profile/reducer';
-import { ChatList } from '../Types';
+import { ChatList, MessageItem } from '../Types';
 
-type MessagesActions = AddChat | AddMessage;
+type ChatActions = AddChat | AddMessage | DelChat;
+
+const ADD_CHAT = 'ADD_CHAT';
+const ADD_MESSAGE = 'ADD_MESSAGE';
+const DELETE_CHAT = 'DELETE_CHAT';
 
 export interface AddChat {
-    type: string;
+    type: typeof ADD_CHAT;
     name: string;
 }
 
-export interface AddMessage {
-    type: string;
+export interface DelChat {
+    type: typeof DELETE_CHAT;
     indx: number;
-    id: number;
-    author: string;
-    text: string;
+}
+
+export interface AddMessage {
+    type: typeof ADD_MESSAGE;
+    indx: number;
+    newMessage: MessageItem;
 }
 
 export interface ChatListState {
     chatList: ChatList;
+    onChange: boolean;
+    lastUser: string;
+    count: number;
 }
 
 export const composeEnhancers =
@@ -39,38 +49,52 @@ const defaultChatList: ChatListState = {
             name: 'chat 3',
             chat: [],
         },
-    ]
+    ],
+    onChange: true,
+    lastUser: '',
+    count: 0
 };
 
 export const addChat = (name: string): AddChat => ({
-    type: 'ADD_CHAT',
+    type: ADD_CHAT,
     name
 });
 
-export const addMessage = (indx: number, id: number, author: string, text: string): AddMessage => ({
-    type: 'ADD_MESSAGE',
-    indx: 0,
-    id: 0,
-    author: '',
-    text: '',
+export const addMessage = (indx: number, newMessage: MessageItem): AddMessage => ({
+    type: ADD_MESSAGE,
+    indx,
+    newMessage,
 });
 
-export const reducer = (state = defaultChatList, action: MessagesActions) => {
+export const reducer = (state = defaultChatList, action: ChatActions) => {
     switch (action.type) {
-        case 'ADD_CHAT': {
+        case ADD_CHAT: {
             return {
                 ...state,
                 chatList: [...state.chatList, { name: action.name, chat: [] }]
             };
         }
-        case 'ADD_MESSAGE': {
+        case ADD_MESSAGE: {
+            const chatAdded = [
+                ...state.chatList[action.indx].chat,
+                { author: action.newMessage.author, text: action.newMessage.text },
+            ];
+            const newState = state;
+            newState.chatList[action.indx].chat = chatAdded;
+            let inc = 0;
+            if (action.newMessage.author === 'Robot') { inc = 0 }
+            else { inc = 1 }
             return {
                 ...state,
-                [action.index]: [{ chat: [] }]
+                chatList: newState.chatList,
+                onChange: !state.onChange,
+                count: state.count = state.count + inc,
+                lastUser: action.newMessage.author
             }
+        }
+        case 'DELETE_CHAT': {
 
         }
-        case 'DELETE_CHAT':
         default:
             return state
     }
@@ -78,7 +102,7 @@ export const reducer = (state = defaultChatList, action: MessagesActions) => {
 
 const rootReducer = combineReducers({
     profile: profileReducer,
-    store: reducer,
+    main: reducer,
 });
 
 export const store = createStore(rootReducer, composeEnhancers());

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Main } from './Pages/Main';
 import { Profile } from './Pages/Profile';
@@ -7,7 +7,6 @@ import { ChatList } from './Types';
 import { Header } from './components/Header';
 import { Provider } from 'react-redux';
 import { store } from './store/index';
-import { useDispatch, useSelector } from 'react-redux';
 
 export const App: FC = () => {
   return (
@@ -22,9 +21,7 @@ export const App: FC = () => {
           <Route path="chats">
             <Route
               path=":chatId"
-              element={
-                <ChatPage chatList={chatList} setChatList={setChatList} />
-              }
+              element={<ChatPage />}
             />
           </Route>
           <Route path="*" element={<div>404 page</div>} />

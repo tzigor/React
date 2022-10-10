@@ -1,44 +1,24 @@
 import './Form.css';
 import { FC, useState, useRef } from 'react';
 import { TextField } from '@material-ui/core';
-import { MessageItems, FormProps, ChatList } from '../../Types';
-import { InputUser } from '../InputUser/InputUser';
+import { FormProps } from '../../Types';
 import { Button } from '../Button/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { ChatListState, addMessage } from '../../store/index';
+import Input from '@mui/material/Input';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import InputAdornment from '@mui/material/InputAdornment';
 
-export const Form: FC<FormProps> = ({
-  chatId,
-  chatList,
-  setChatList,
-  setCount,
-  setLastUser,
-}) => {
-  const [textToBeSend, setTextToBeSend] = useState('');
-  const [user, setUser] = useState('');
+let newText: string;
+let user: string;
 
+export const Form: FC<FormProps> = ({ chatId }) => {
   const messageInputRef = useRef<HTMLInputElement>(null);
-
-  const handleClick = () => {
-    if (user && textToBeSend) {
-      const updateMessage: MessageItems = [
-        ...chatList[Number(chatId) - 1].chat,
-        {
-          id: chatList[Number(chatId) - 1].chat.length + 1,
-          author: user,
-          text: textToBeSend,
-        },
-      ];
-      chatList[Number(chatId) - 1].chat = updateMessage;
-      setChatList(chatList);
-      setCount(updateMessage.length);
-      setLastUser(user);
-    }
-    messageInputRef.current?.focus();
-  };
+  const dispatch = useDispatch();
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
   };
-
   return (
     <form data-testid="formBox" onSubmit={handleSubmit} className="form">
       <TextField
@@ -46,17 +26,27 @@ export const Form: FC<FormProps> = ({
         inputRef={messageInputRef}
         label="Enter text"
         variant="outlined"
-        onChange={(ev) => setTextToBeSend(ev.target.value)}
+        onChange={(ev) => newText = ev.target.value}
         multiline
         minRows="4"
         maxRows="4"
         className="inputForm"
-        value={textToBeSend}
         inputProps={{ 'data-testid': 'input' }}
       />
       <div className="inputUser">
-        <InputUser changeUser={setUser} />
-        <Button click={handleClick} />
+        <Input
+          startAdornment={
+            <InputAdornment position="start">
+              <AccountCircle />
+            </InputAdornment>
+          }
+          style={{ width: '150px' }}
+          placeholder="User"
+          onChange={(ev) => user = ev.target.value}
+          inputProps={{ 'data-testid': 'input' }}
+        />
+        <Button click={() => dispatch(addMessage(Number(chatId) - 1,
+          { author: user, text: newText }))} />
       </div>
     </form>
   );

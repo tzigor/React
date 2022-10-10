@@ -7,12 +7,19 @@ import { MessageItems, MainProps, ChatList } from '../Types';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addChat, ChatListState } from '../store/index';
+import { addMessage } from '../store/index';
 
 export const ChatPage = () => {
-    const [count, setCount] = useState(0);
-    const [lastUser, setLastUser] = useState('');
+    const navigate = useNavigate();
+    const { chatId } = useParams();
+    // const [count, setCount] = useState(0);
     const [reRender, setRender] = useState(true);
-    const chatListState = useSelector((state: ChatListState) => state.store.chatList);
+    const chatListState = useSelector((state: ChatListState) => state.main.chatList);
+    const countState = useSelector((state: ChatListState) => state.main.count);
+    const userState = useSelector((state: ChatListState) => state.main.lastUser);
+    const dispatch = useDispatch();
+    console.log(chatListState);
+    console.log(chatListState.count);
 
     const firstUpdate = useRef(true);
     useEffect(() => {
@@ -21,44 +28,33 @@ export const ChatPage = () => {
             return;
         }
         const timeout = setTimeout(() => {
-            chatList[Number(chatId) - 1].chat = [
-                ...chatList[Number(chatId) - 1].chat,
-                {
-                    id: chatList[Number(chatId) - 1].chat.length + 1,
-                    author: 'Robot',
-                    text: 'Hi ' + lastUser + '. ' + randomMessage(),
-                },
-            ];
-            setChatList(chatList);
+            dispatch(addMessage(Number(chatId) - 1,
+                { author: 'Robot', text: 'Hi, ' + userState + '. ' + randomMessage() }))
             setRender(!reRender);
         }, 1500);
         return () => clearTimeout(timeout);
-    }, [count]);
+    }, [countState]);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const handleClick = () => {
-        chatList.splice(Number(chatId) - 1, 1);
+        // chatListState.splice(Number(chatId) - 1, 1);
         navigate('/Main');
     };
-    const { chatId } = useParams();
+    // const { chatId } = useParams();
 
-    if (!chatId || isNaN(Number(chatId)) || Number(chatId) > chatList.length) {
+    if (!chatId || isNaN(Number(chatId)) || Number(chatId) > chatListState.length) {
         return <Navigate to="/" replace />;
     }
 
     return (
         <div className="App">
-            <p>{chatList[Number(chatId) - 1].name}</p>
-            <Form
-                chatId={chatId}
-                setCount={setCount}
-                setLastUser={setLastUser}
-            />
-            <Message chatId={chatId} chatList={chatList} />
+            <p>{chatListState[Number(chatId) - 1].name}</p>
+            <Form chatId={chatId} />
+            <Message chatId={chatId} chatList={chatListState} />
             <button className="delButton" onClick={handleClick}>
                 Delete chat
             </button>
-            <p>Total {count} messages received from users</p>
+            <p>Total {countState} messages received from users</p>
         </div>
     );
 };
