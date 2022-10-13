@@ -6,7 +6,7 @@ type ChatActions = AddChat | AddMessage | DelChat;
 
 const ADD_CHAT = 'ADD_CHAT';
 const ADD_MESSAGE = 'ADD_MESSAGE';
-const DELETE_CHAT = 'DELETE_CHAT';
+const DEL_CHAT = 'DEL_CHAT';
 
 export interface AddChat {
     type: typeof ADD_CHAT;
@@ -14,7 +14,7 @@ export interface AddChat {
 }
 
 export interface DelChat {
-    type: typeof DELETE_CHAT;
+    type: typeof DEL_CHAT;
     indx: number;
 }
 
@@ -60,6 +60,11 @@ export const addChat = (name: string): AddChat => ({
     name
 });
 
+export const delChat = (indx: number): DelChat => ({
+    type: DEL_CHAT,
+    indx
+});
+
 export const addMessage = (indx: number, newMessage: MessageItem): AddMessage => ({
     type: ADD_MESSAGE,
     indx,
@@ -92,7 +97,12 @@ export const reducer = (state = defaultChatList, action: ChatActions) => {
                 lastUser: action.newMessage.author
             }
         }
-        case 'DELETE_CHAT': {
+        case DEL_CHAT: {
+            state.chatList.splice(action.indx, 1);
+            return {
+                ...state,
+                onChange: !state.onChange
+            };
 
         }
         default:
