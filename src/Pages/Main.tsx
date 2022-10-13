@@ -1,44 +1,41 @@
-import React, { FC, useState } from 'react';
-import { ChatList, MainProps } from '../Types';
+import React from 'react';
+import { Chats } from '../Types';
 import { NavLink } from 'react-router-dom';
 import { ListItem } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import './pages.css';
+import { addChat, ChatListState } from '../store/index';
 
-export const Main: FC<MainProps> = ({ chatList, handleChatList }) => {
-  const [chatName, setChatName] = useState('');
-  const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
-    ev.preventDefault();
-  };
-  const handleClick = () => {
-    if (chatName) {
-      const updateChats: ChatList = [
-        ...chatList,
-        { id: chatList.length + 1, name: chatName, chat: [] },
-      ];
-      handleChatList(updateChats);
-    }
-  };
-  return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          className="input"
-          onChange={(ev) => setChatName(ev.target.value)}
-        />
-        <button className="button" onClick={handleClick}>
-          Add chat
-        </button>
-      </form>
+export const Main = () => {
+    const dispatch = useDispatch();
+    const chatListState = useSelector((state: ChatListState) => state.main.chatList);
+    let chatName = '';
 
-      {chatList.map((item, indx) => {
-        return (
-          <ListItem key={indx}>
-            <NavLink to={`/chats/${indx + 1}`}>
-              <p>{item.name}</p>
-            </NavLink>
-          </ListItem>
-        );
-      })}
-    </>
-  );
+    const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+        ev.preventDefault();
+    };
+
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                <input
+                    className="input"
+                    onChange={(ev) => chatName = ev.target.value}
+                />
+                <button className="button" onClick={() => dispatch(addChat(chatName))}>
+                    Add chat
+                </button>
+            </form>
+
+            {chatListState.map((item: Chats, indx: number) => {
+                return (
+                    <ListItem key={indx}>
+                        <NavLink to={`/chats/${indx + 1}`}>
+                            <p>{item.name}</p>
+                        </NavLink>
+                    </ListItem>
+                );
+            })}
+        </>
+    );
 };

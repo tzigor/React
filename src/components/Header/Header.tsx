@@ -24,6 +24,15 @@ export const Header: FC = () => {
         >
           Profile
         </NavLink>
+        <NavLink
+          className="link"
+          to={'/Articles'}
+          style={({ isActive }) => ({
+            color: isActive ? 'green' : 'blue',
+          })}
+        >
+          Articles
+        </NavLink>
       </header>
       <main>
         <Outlet />

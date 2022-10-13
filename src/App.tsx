@@ -1,49 +1,33 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Main } from './Pages/Main';
 import { Profile } from './Pages/Profile';
 import { ChatPage } from './Pages/ChatPage';
-import { ChatList } from './Types';
 import { Header } from './components/Header';
-
-const defaultChatList: ChatList = [
-  {
-    id: 1,
-    name: 'chat 1',
-    chat: [],
-  },
-  {
-    id: 2,
-    name: 'chat 2',
-    chat: [],
-  },
-  {
-    id: 3,
-    name: 'chat 3',
-    chat: [],
-  },
-];
+import { Provider } from 'react-redux';
+import { store } from './store/index';
+import { Articles } from './Pages/Articles';
 
 export const App: FC = () => {
-  const [chatList, setChatList] = useState<ChatList>(defaultChatList);
   return (
-    <Routes>
-      <Route path="/" element={<Header />}>
-        <Route
-          path="/Main"
-          element={<Main chatList={chatList} handleChatList={setChatList} />}
-        />
-        <Route path="profile" element={<Profile />} />
-        <Route path="chats">
+    <Provider store={store}>
+      <Routes>
+        <Route path="/" element={<Header />}>
           <Route
-            path=":chatId"
-            element={
-              <ChatPage chatList={chatList} handleChatList={setChatList} />
-            }
+            path="/Main"
+            element={<Main />}
           />
+          <Route path="profile" element={<Profile />} />
+          <Route path="chats">
+            <Route
+              path=":chatId"
+              element={<ChatPage />}
+            />
+          </Route>
+          <Route path="articles" element={<Articles />} />
+          <Route path="*" element={<div>404 page</div>} />
         </Route>
-        <Route path="*" element={<div>404 page</div>} />
-      </Route>
-    </Routes>
+      </Routes>
+    </Provider>
   );
 };

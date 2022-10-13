@@ -1,13 +1,14 @@
 export interface MessageItem {
   author: string;
   text: string;
-  id: number;
 }
 
 export type MessageItems = MessageItem[];
+export type MessageItemsObj = {
+  Chat: MessageItems
+};
 
 export interface Chats {
-  id: number;
   name: string;
   chat: MessageItems;
 }
@@ -16,18 +17,16 @@ export type ChatList = Chats[];
 
 export interface MainProps {
   chatList: ChatList;
-  handleChatList: React.Dispatch<React.SetStateAction<ChatList>>;
+  setChatList: React.Dispatch<React.SetStateAction<ChatList>>;
 }
 
 export interface FormProps {
-  message: MessageItems;
-  handleChangeText: React.Dispatch<React.SetStateAction<MessageItems>>;
-  setCount: any;
-  setLastUser: any;
+  chatId: string;
 }
 
 export interface MessageProps {
-  messageListProp: MessageItems;
+  chatId: string;
+  chatList: ChatList;
 }
 
 export interface InputUserProps {
