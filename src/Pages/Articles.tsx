@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import './pages.css';
 
 const api = 'https://api.spaceflightnewsapi.net';
 
@@ -43,7 +44,7 @@ export const Articles: FC = () => {
         <>
             <h2>Articles</h2>
             {loading && <div>Loading...</div>}
-            <button onClick={getFetchArticles}>reload</button>
+            <button className="button" onClick={getFetchArticles}>Reload</button>
             <ul>
                 {articles.map((acticle) => (
                     <li key={acticle.id}>{acticle.title}</li>
